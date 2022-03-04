@@ -1,5 +1,4 @@
 console.clear();
-
 const sliderProps = {
 	fill: "#000000",
 	background: "rgba(255, 255, 255, 0.214)",
@@ -7,10 +6,10 @@ const sliderProps = {
 
 const slider = document.querySelector(".range__slider");
 
-// Value of the length slider
+// length slider value
 const sliderValue = document.querySelector(".length__title");
 
-// Change the value of the length label text
+// change the value of the length label text
 slider.querySelector("input").addEventListener("input", event => {
 	sliderValue.setAttribute("data-length", event.target.value);
 	applyFill(event.target);
@@ -26,7 +25,7 @@ function applyFill(slider) {
 	sliderValue.setAttribute("data-length", slider.value);
 }
 
-// Object of all the function names that will create random letters of password
+//function that will call the separate generation functions
 const randomFunc = {
 	lower: getRandomLower,
 	upper: getRandomUpper,
@@ -50,7 +49,7 @@ function getRandomSymbol() {
 	return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
-//Dom Elements
+//dom Elements
 const resultEl = document.getElementById("result");
 
 const lengthEl = document.getElementById("slider");
@@ -69,8 +68,7 @@ const copiedInfo = document.querySelector(".result__info.left");
 let generatedPassword = false;
 
 
-
-// Copy Password in clipboard
+// copy Password to clipboard
 copyBtn.addEventListener("click", () => {
 	const textarea = document.createElement("textarea");
 	const password = resultEl.innerText;
@@ -85,8 +83,7 @@ copyBtn.addEventListener("click", () => {
 });
 
 
-
-// When generate is clicked check flags
+// when generate is clicked check flags
 generateBtn.addEventListener("click", () => {
 	const length = +lengthEl.value;
 	const hasLower = lowercaseEl.checked;
@@ -97,7 +94,8 @@ generateBtn.addEventListener("click", () => {
 	resultEl.innerText = generatePassword(length, hasLower, hasUpper, hasNumber, hasSymbol);
 });
 
-// Generate pw characters 
+
+// generate pw characters 
 function generatePassword(length, lower, upper, number, symbol) {
 	let generatedPassword = "";
 	const typesCount = lower + upper + number + symbol;
@@ -112,18 +110,19 @@ function generatePassword(length, lower, upper, number, symbol) {
 		});
 	}
 	return generatedPassword.slice(0, length)
-									.split('')
-									.sort(() => Math.random() - 0.5)
-									.join('');
+			.split('')
+			.sort(() => Math.random() - 0.5)
+			.join('');
 }
+
 
 // at least one checkbox needs to be selected
 function disableOnlyCheckbox(){
 	let totalChecked = [uppercaseEl, lowercaseEl, numberEl, symbolEl].filter(el => el.checked)
 	totalChecked.forEach(el => {
-		if(totalChecked.length == 1){
+		if(totalChecked.length == 1) {
 			el.disabled = true;
-		}else{
+		} else {
 			el.disabled = false;
 		}
 	})
